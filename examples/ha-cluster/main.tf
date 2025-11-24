@@ -1,0 +1,75 @@
+provider "huaweicloud" {
+  region = local.region
+}
+
+data "huaweicloud_availability_zones" "available" {}
+
+locals {
+  name   = "ex-${basename(path.cwd)}"
+  region = "tr-west-1"
+
+  vpc_cidr = "192.168.0.0/16"
+  # Note: If you see only 2 AZs but need 3 AZs, request access via Huawei Cloud Support → Work Order
+  # If region doesn't support 3 AZs, use host-level HA by placing multiple masters in same AZ
+  azs = slice(data.huaweicloud_availability_zones.available.names, 0, min(3, length(data.huaweicloud_availability_zones.available.names)))
+
+  # HA Configuration: 3 master nodes
+  # Option 1 (3 AZs): 1 master per AZ: [{az: azs[0]}, {az: azs[1]}, {az: azs[2]}]
+  # Option 2 (2 AZs): Host-level HA: [{az: azs[0]}, {az: azs[0]}, {az: azs[1]}]
+  masters = [
+    {
+      availability_zone = local.azs[0]
+    },
+    {
+      availability_zone = local.azs[1]
+    },
+    {
+      availability_zone = local.azs[2]
+    }
+  ]
+
+  tags = {
+    Example    = local.name
+    GithubRepo = "terraform-huawei-cce"
+    GithubOrg  = "terraform-huawei-modules"
+  }
+}
+
+################################################################################
+# Supporting Resources
+################################################################################
+
+module "vpc" {
+  source = "../../../terraform-huawei-vpc"
+
+  name   = local.name
+  region = local.region
+  cidr   = local.vpc_cidr
+
+  azs             = local.azs
+  private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
+
+  private_subnet_primary_dns   = "100.125.2.250"
+  private_subnet_secondary_dns = "100.125.2.251"
+
+  tags = local.tags
+}
+
+################################################################################
+# CCE HA Cluster Module
+################################################################################
+
+module "cce" {
+  source = "../../"
+
+  name                   = local.name
+  flavor_id              = "cce.s2.small"
+  vpc_id                 = module.vpc.vpc_id
+  subnet_id              = module.vpc.private_subnets[0]
+  container_network_type = "overlay_l2"
+
+  masters = local.masters
+
+  tags = local.tags
+}
+

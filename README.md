@@ -6,7 +6,7 @@ Terraform module which creates CCE (Cloud Container Engine) resources on HuaweiC
 
 ```hcl
 module "cce" {
-  source = "../.." # Adjust for your usage; see ./examples/* for references
+  source = "github.com/artifactsystems/terraform-huawei-cce?ref=v1.0.0"
 
   name            = "my-cce-cluster"
   region          = "tr-west-1"

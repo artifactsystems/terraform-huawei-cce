@@ -135,7 +135,7 @@ module "vpc" {
   # DNS Configuration - Use Region-Specific Huawei Cloud DNS Servers
   # ============================================================================
   # IMPORTANT: CCE nodes require proper DNS configuration to complete installation.
-  # Without correct DNS, nodes will remain stuck in "Installing" status indefinitely. 
+  # Without correct DNS, nodes will remain stuck in "Installing" status indefinitely.
 
   # WHY REGIONAL DNS SERVERS?
   # -------------------------

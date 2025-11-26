@@ -154,4 +154,3 @@ output "log_config_id" {
   description = "The ID of the cluster log config (same as cluster ID)"
   value       = try(huaweicloud_cce_cluster_log_config.this[0].id, null)
 }
-

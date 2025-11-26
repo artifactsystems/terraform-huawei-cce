@@ -12,4 +12,3 @@ output "log_config_id" {
   description = "The ID of the cluster log config (same as cluster ID)"
   value       = module.cce.log_config_id
 }
-

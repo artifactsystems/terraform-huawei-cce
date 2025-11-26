@@ -9,7 +9,7 @@ locals {
   region = "tr-west-1"
 
   vpc_cidr = "10.0.0.0/16"
-  azs = slice(data.huaweicloud_availability_zones.available.names, 0, min(3, length(data.huaweicloud_availability_zones.available.names)))
+  azs      = slice(data.huaweicloud_availability_zones.available.names, 0, min(3, length(data.huaweicloud_availability_zones.available.names)))
 
   masters = [
     {
@@ -36,12 +36,12 @@ locals {
 
 module "vpc" {
   source = "github.com/artifactsystems/terraform-huawei-vpc?ref=v1.0.0"
-  name = local.name
+  name   = local.name
   region = local.region
-  cidr = local.vpc_cidr
-  
-  azs = local.azs
-  private_subnets = [for k,v in local.azs: cidrsubnet(local.vpc_cidr, 8, k)]
+  cidr   = local.vpc_cidr
+
+  azs             = local.azs
+  private_subnets = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
 
   private_subnet_primary_dns   = "100.125.2.250"
   private_subnet_secondary_dns = "100.125.2.251"
@@ -51,11 +51,11 @@ module "vpc" {
 
 module "cce" {
   source = "../.."
-  
-  name = local.name
-  flavor_id = "cce.s2.small"
-  vpc_id = module.vpc.vpc_id
-  subnet_id = module.vpc.private_subnets[0]
+
+  name                   = local.name
+  flavor_id              = "cce.s2.small"
+  vpc_id                 = module.vpc.vpc_id
+  subnet_id              = module.vpc.private_subnets[0]
   container_network_type = "overlay_l2"
   delete_all             = "true"
 
@@ -89,7 +89,7 @@ module "cce" {
 
       labels = {
         "node-pool" = "default"
-        "workload" = "general"
+        "workload"  = "general"
       }
       tags = local.tags
     }

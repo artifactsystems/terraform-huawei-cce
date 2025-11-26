@@ -35,4 +35,3 @@ output "node_pool_extension_scale_groups" {
   description = "The configurations of extended scaling groups in the node pool"
   value       = try(local.node_pool.extension_scale_groups, null)
 }
-

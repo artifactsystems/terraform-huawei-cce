@@ -34,4 +34,3 @@ resource "huaweicloud_cce_addon" "this" {
     delete = coalesce(try(var.timeouts.delete, null), "3m")
   }
 }
-

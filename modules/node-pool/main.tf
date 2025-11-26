@@ -209,4 +209,3 @@ resource "huaweicloud_cce_node_pool" "this" {
     delete = coalesce(try(var.timeouts.delete, null), "30m")
   }
 }
-

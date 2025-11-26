@@ -17,4 +17,3 @@ output "cluster_status" {
   description = "Status of the CCE cluster"
   value       = module.cce.cluster_status
 }
-

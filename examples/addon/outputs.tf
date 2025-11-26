@@ -32,4 +32,3 @@ output "addon_versions" {
   description = "Map of addon versions"
   value       = module.cce.addon_versions
 }
-

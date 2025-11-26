@@ -15,12 +15,6 @@ variable "region" {
   default     = null
 }
 
-variable "tags" {
-  description = "A map of tags to add to all resources"
-  type        = map(string)
-  default     = {}
-}
-
 ################################################################################
 # Addon
 ################################################################################
@@ -29,13 +23,6 @@ variable "cluster_id" {
   description = "The ID of the CCE cluster"
   type        = string
 }
-
-variable "name" {
-  description = "Name of the addon instance (optional, defaults to template_name)"
-  type        = string
-  default     = null
-}
-
 variable "template_name" {
   description = "Name of the addon template (e.g., 'autoscaler', 'metrics-server')"
   type        = string
@@ -73,4 +60,3 @@ variable "timeouts" {
   })
   default = null
 }
-

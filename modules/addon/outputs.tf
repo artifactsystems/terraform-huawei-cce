@@ -30,4 +30,3 @@ output "addon_version" {
   description = "Version of the addon"
   value       = try(local.addon.version, null)
 }
-

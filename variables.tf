@@ -8,12 +8,6 @@ variable "create" {
   default     = true
 }
 
-variable "prefix_separator" {
-  description = "The separator to use between the prefix and the generated timestamp for resource names"
-  type        = string
-  default     = "-"
-}
-
 variable "region" {
   description = "The Huawei Cloud region where resources will be created. If not specified, the region configured in the provider will be used"
   type        = string
@@ -519,4 +513,3 @@ variable "log_config" {
   })
   default = null
 }
-

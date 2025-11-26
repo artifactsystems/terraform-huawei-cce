@@ -27,4 +27,3 @@ output "node_pool_current_node_counts" {
   description = "Map of current node counts for each node pool"
   value       = module.cce.node_pool_current_node_counts
 }
-

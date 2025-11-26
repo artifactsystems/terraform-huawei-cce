@@ -69,4 +69,3 @@ module "cce_node_pool" {
     try(each.value.tags, {}),
   )
 }
-

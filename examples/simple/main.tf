@@ -52,4 +52,3 @@ module "cce" {
 
   tags = local.tags
 }
-

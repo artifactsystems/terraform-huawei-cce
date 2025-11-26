@@ -84,3 +84,9 @@ Main outputs:
 - `node_pool_ids`: Map of node pool IDs
 - `addon_ids`: Map of addon IDs
 - `log_config_id`: Log configuration ID
+
+## Contributing
+
+Report issues/questions/feature requests in the [issues](https://github.com/artifactsystems/terraform-huawei-cce/issues/new) section.
+
+Full contributing [guidelines are covered here](.github/CONTRIBUTING.md).
